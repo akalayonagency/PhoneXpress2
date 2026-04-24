@@ -103,7 +103,7 @@
       position: relative;
       z-index: 2;
       display: grid;
-      grid-template-columns: 0.88fr 1.18fr 0.88fr;
+      grid-template-columns: 0.9fr 1.12fr 1fr;
       gap: 18px;
       align-items: stretch;
     }
@@ -240,16 +240,18 @@
 
     .px-title {
       margin: 0 0 12px;
-      max-width: 390px;
-      font-size: clamp(25px, 3vw, 38px);
-      line-height: 0.96;
-      letter-spacing: -1.2px;
+      max-width: 100%;
+      font-size: clamp(24px, 2.5vw, 34px);
+      line-height: 0.98;
+      letter-spacing: -1px;
       text-transform: uppercase;
       font-weight: 1000;
+      overflow-wrap: normal;
+      word-break: normal;
     }
 
     .px-main .px-title {
-      font-size: clamp(30px, 3.5vw, 46px);
+      font-size: clamp(30px, 3.3vw, 42px);
     }
 
     .px-text {
@@ -371,39 +373,6 @@
 
     .px-main .px-watermark { font-size: 82px; }
 
-    .px-bottom-strip {
-      position: relative;
-      z-index: 3;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin-top: 14px;
-    }
-
-    .px-chip {
-      min-height: 58px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 12px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.12);
-      color: rgba(255,255,255,0.82);
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: .5px;
-      font-size: 12px;
-      backdrop-filter: blur(10px);
-    }
-
-    .px-chip span {
-      color: var(--blue-2);
-      text-shadow: 0 0 14px rgba(20,151,232,0.75);
-      font-size: 18px;
-    }
-
     @keyframes auraMove {
       from { transform: scale(.98) translateY(4px); opacity: .78; }
       to { transform: scale(1.035) translateY(-6px); opacity: 1; }
@@ -490,7 +459,7 @@
           <p class="px-text">Écran, batterie, vitre arrière, diagnostic : Phone Xpress va droit au problème pour vous faire gagner du temps.</p>
 
           <div class="px-cta">
-            <a class="px-button" href="https://akalayonagency.github.io/PhoneXpress/" target="_blank" rel="noopener">Lancer le diagnostic</a>
+            <a class="px-button" href="https://phonexpress.odoo.com/demande-de-devis" target="_blank" rel="noopener">Lancer le diagnostic</a>
             <span class="px-ghost">Demande en ligne rapide</span>
           </div>
 
@@ -517,13 +486,6 @@
             <div class="elfsight-app-5f89ed93-18d6-45b4-9700-fc37cce6187b" data-elfsight-app-lazy></div>
           </div>
         </article>
-      </div>
-
-      <div class="px-bottom-strip">
-        <div class="px-chip"><span>⚡</span> Diagnostic rapide</div>
-        <div class="px-chip"><span>🛠</span> Réparation soignée</div>
-        <div class="px-chip"><span>📱</span> Toutes marques</div>
-        <div class="px-chip"><span>★</span> Avis vérifiés</div>
       </div>
     </section>
   </main>
