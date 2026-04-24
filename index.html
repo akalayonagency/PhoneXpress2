@@ -1,0 +1,91 @@
+<section class="px-stats">
+
+  <div class="px-stat">
+    <div class="px-big">+100</div>
+    <div class="px-label">clients satisfaits</div>
+  </div>
+
+  <div class="px-stat px-center">
+    <div class="px-title">Délai moyen</div>
+    <div class="px-big">30 min</div>
+    <div class="px-label">pour une réparation</div>
+  </div>
+
+  <div class="px-stat">
+    <div class="px-big">4.7/5</div>
+    <div class="px-label">avis Google</div>
+
+    <!-- Widget Google Reviews -->
+    <div class="px-reviews">
+      <script src="https://elfsightcdn.com/platform.js" async></script>
+      <div class="elfsight-app-5f89ed93-18d6-45b4-9700-fc37cce6187b" data-elfsight-app-lazy></div>
+    </div>
+
+  </div>
+
+</section>
+
+<style>
+  .px-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background: transparent; /* IMPORTANT */
+    color: white;
+    max-width: 1200px;
+    margin: 60px auto;
+    gap: 20px;
+  }
+
+  .px-stat {
+    text-align: center;
+    padding: 50px 25px;
+    border-radius: 20px;
+    background: rgba(0,0,0,0.55); /* effet glass */
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 30px rgba(20,151,232,0.25);
+  }
+
+  .px-center {
+    background: linear-gradient(
+      135deg,
+      rgba(20,151,232,0.25),
+      rgba(0,0,0,0.6)
+    );
+  }
+
+  .px-title {
+    font-size: clamp(26px, 4vw, 50px);
+    font-weight: 300;
+    margin-bottom: 15px;
+  }
+
+  .px-big {
+    font-size: clamp(40px, 6vw, 80px);
+    font-weight: 800;
+    text-shadow: 0 0 20px rgba(20,151,232,0.7);
+    margin-bottom: 10px;
+  }
+
+  .px-label {
+    font-size: 18px;
+    color: rgba(255,255,255,0.85);
+    text-decoration: underline;
+    text-underline-offset: 6px;
+  }
+
+  .px-reviews {
+    margin-top: 20px;
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .px-stats {
+      grid-template-columns: 1fr;
+    }
+
+    .px-stat {
+      padding: 35px 20px;
+    }
+  }
+</style>
