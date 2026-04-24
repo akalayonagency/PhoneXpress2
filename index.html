@@ -1,91 +1,532 @@
-<section class="px-stats">
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Phone Xpress - Stats & Avis</title>
 
-  <div class="px-stat">
-    <div class="px-big">+100</div>
-    <div class="px-label">clients satisfaits</div>
-  </div>
+  <style>
+    :root {
+      --blue: #1497e8;
+      --blue-soft: rgba(20, 151, 232, 0.45);
+      --blue-deep: #035d9c;
+      --white: #ffffff;
+      --text-soft: rgba(255,255,255,0.78);
+      --glass: rgba(4, 13, 22, 0.58);
+      --glass-strong: rgba(4, 13, 22, 0.78);
+    }
 
-  <div class="px-stat px-center">
-    <div class="px-title">Délai moyen</div>
-    <div class="px-big">30 min</div>
-    <div class="px-label">pour une réparation</div>
-  </div>
+    * {
+      box-sizing: border-box;
+    }
 
-  <div class="px-stat">
-    <div class="px-big">4.7/5</div>
-    <div class="px-label">avis Google</div>
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      font-family: Arial, Helvetica, sans-serif;
+      background: transparent;
+      color: var(--white);
+      overflow-x: hidden;
+    }
 
-    <!-- Widget Google Reviews -->
-    <div class="px-reviews">
-      <script src="https://elfsightcdn.com/platform.js" async></script>
-      <div class="elfsight-app-5f89ed93-18d6-45b4-9700-fc37cce6187b" data-elfsight-app-lazy></div>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 14px;
+    }
+
+    .px-section {
+      position: relative;
+      width: min(1280px, 100%);
+      min-height: 620px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      isolation: isolate;
+    }
+
+    .px-aura {
+      position: absolute;
+      inset: 8% 4%;
+      background:
+        radial-gradient(circle at 18% 20%, rgba(20,151,232,0.42), transparent 31%),
+        radial-gradient(circle at 86% 12%, rgba(255,255,255,0.14), transparent 26%),
+        radial-gradient(circle at 50% 90%, rgba(20,151,232,0.24), transparent 34%);
+      filter: blur(30px);
+      opacity: 0.95;
+      z-index: -3;
+      animation: breathe 7s ease-in-out infinite alternate;
+    }
+
+    .px-grid-lines {
+      position: absolute;
+      inset: 0;
+      opacity: 0.16;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.12) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(circle, #000 0%, transparent 72%);
+      z-index: -2;
+    }
+
+    .px-orbit {
+      position: absolute;
+      width: 520px;
+      height: 520px;
+      border: 1px solid rgba(20,151,232,0.22);
+      border-radius: 50%;
+      z-index: -1;
+      animation: rotate 22s linear infinite;
+    }
+
+    .px-orbit::before,
+    .px-orbit::after {
+      content: "";
+      position: absolute;
+      width: 13px;
+      height: 13px;
+      border-radius: 999px;
+      background: var(--blue);
+      box-shadow: 0 0 22px var(--blue), 0 0 55px var(--blue);
+    }
+
+    .px-orbit::before {
+      top: 48px;
+      left: 96px;
+    }
+
+    .px-orbit::after {
+      right: 72px;
+      bottom: 90px;
+      width: 9px;
+      height: 9px;
+      opacity: 0.75;
+    }
+
+    .px-panel {
+      position: relative;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 0.95fr 1.25fr 0.95fr;
+      gap: 22px;
+      align-items: stretch;
+      padding: 18px;
+      border-radius: 34px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.03)),
+        rgba(0,0,0,0.12);
+      border: 1px solid rgba(255,255,255,0.14);
+      backdrop-filter: blur(14px);
+      box-shadow:
+        0 30px 90px rgba(0,0,0,0.38),
+        inset 0 0 0 1px rgba(255,255,255,0.04);
+      overflow: hidden;
+    }
+
+    .px-panel::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: linear-gradient(
+        115deg,
+        transparent 42%,
+        rgba(20,151,232,0.12) 45%,
+        rgba(255,255,255,0.58) 48%,
+        rgba(20,151,232,0.18) 51%,
+        transparent 55%
+      );
+      transform: translateX(-35%) rotate(8deg);
+      animation: scan 6.5s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .px-card {
+      position: relative;
+      min-height: 430px;
+      padding: 34px 30px;
+      border-radius: 28px;
+      background:
+        radial-gradient(circle at top left, rgba(20,151,232,0.18), transparent 36%),
+        linear-gradient(145deg, rgba(255,255,255,0.10), rgba(255,255,255,0.025)),
+        var(--glass);
+      border: 1px solid rgba(255,255,255,0.16);
+      box-shadow:
+        0 22px 70px rgba(0,0,0,0.28),
+        inset 0 0 0 1px rgba(255,255,255,0.04);
+      overflow: hidden;
+      transform-style: preserve-3d;
+      transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+    }
+
+    .px-card:hover {
+      transform: translateY(-10px) scale(1.015);
+      border-color: rgba(20,151,232,0.58);
+      box-shadow:
+        0 34px 90px rgba(0,0,0,0.46),
+        0 0 58px rgba(20,151,232,0.22),
+        inset 0 0 0 1px rgba(255,255,255,0.07);
+    }
+
+    .px-card::after {
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      right: -90px;
+      bottom: -90px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(20,151,232,0.34), transparent 68%);
+      filter: blur(2px);
+      pointer-events: none;
+    }
+
+    .px-card-main {
+      min-height: 500px;
+      margin-top: -35px;
+      margin-bottom: -35px;
+      padding: 42px 36px;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(20,151,232,0.48), transparent 38%),
+        linear-gradient(145deg, rgba(20,151,232,0.24), rgba(0,0,0,0.26)),
+        var(--glass-strong);
+      border-color: rgba(20,151,232,0.52);
+      box-shadow:
+        0 34px 100px rgba(0,0,0,0.45),
+        0 0 60px rgba(20,151,232,0.18),
+        inset 0 0 0 1px rgba(255,255,255,0.08);
+    }
+
+    .px-topline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 42px;
+    }
+
+    .px-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 13px;
+      border-radius: 999px;
+      background: rgba(20,151,232,0.15);
+      border: 1px solid rgba(20,151,232,0.38);
+      color: rgba(255,255,255,0.9);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.9px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .px-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--blue);
+      box-shadow: 0 0 15px var(--blue);
+    }
+
+    .px-icon {
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.09);
+      border: 1px solid rgba(255,255,255,0.15);
+      font-size: 25px;
+      box-shadow: inset 0 0 18px rgba(255,255,255,0.04);
+    }
+
+    .px-number {
+      display: flex;
+      align-items: flex-end;
+      gap: 10px;
+      margin-bottom: 24px;
+      line-height: 0.85;
+      font-size: clamp(62px, 8vw, 118px);
+      font-weight: 950;
+      letter-spacing: -5px;
+      color: #fff;
+      text-shadow:
+        0 0 20px rgba(20,151,232,0.92),
+        0 0 54px rgba(20,151,232,0.42);
+    }
+
+    .px-card-main .px-number {
+      font-size: clamp(92px, 11vw, 168px);
+      letter-spacing: -7px;
+    }
+
+    .px-number small {
+      margin-bottom: 10px;
+      font-size: 0.31em;
+      letter-spacing: 0;
+      color: rgba(255,255,255,0.9);
+    }
+
+    .px-title {
+      margin: 0 0 12px;
+      font-size: clamp(23px, 3vw, 38px);
+      line-height: 1.05;
+      font-weight: 900;
+      letter-spacing: -1px;
+      text-transform: uppercase;
+    }
+
+    .px-text {
+      margin: 0;
+      max-width: 360px;
+      color: var(--text-soft);
+      font-size: 16px;
+      line-height: 1.58;
+    }
+
+    .px-card-main .px-text {
+      font-size: 18px;
+      color: rgba(255,255,255,0.84);
+    }
+
+    .px-progress {
+      position: relative;
+      height: 8px;
+      margin-top: 32px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.12);
+      overflow: hidden;
+    }
+
+    .px-progress span {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: var(--w);
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--blue-deep), var(--blue), #ffffff);
+      box-shadow: 0 0 20px rgba(20,151,232,0.7);
+      animation: grow 1.25s ease both;
+    }
+
+    .px-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-top: 34px;
+    }
+
+    .px-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      padding: 0 22px;
+      border-radius: 17px;
+      background: linear-gradient(135deg, var(--blue), var(--blue-deep));
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 950;
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      box-shadow: 0 18px 38px rgba(20,151,232,0.38);
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .px-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 25px 52px rgba(20,151,232,0.55);
+    }
+
+    .px-ghost {
+      color: rgba(255,255,255,0.76);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .px-stars {
+      display: flex;
+      gap: 6px;
+      margin: 26px 0 16px;
+      color: var(--blue);
+      font-size: 24px;
+      text-shadow: 0 0 16px rgba(20,151,232,0.8);
+    }
+
+    .px-review-box {
+      position: relative;
+      margin-top: 18px;
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      max-height: 160px;
+      overflow: hidden;
+    }
+
+    .px-review-box::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 48px;
+      background: linear-gradient(transparent, rgba(4, 13, 22, 0.96));
+      pointer-events: none;
+    }
+
+    .px-mini {
+      position: absolute;
+      right: 22px;
+      bottom: 20px;
+      color: rgba(255,255,255,0.18);
+      font-size: 72px;
+      font-weight: 950;
+      letter-spacing: -4px;
+      pointer-events: none;
+    }
+
+    @keyframes breathe {
+      from { transform: scale(0.98); opacity: 0.72; }
+      to { transform: scale(1.04); opacity: 1; }
+    }
+
+    @keyframes rotate {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes scan {
+      0%, 35% { transform: translateX(-48%) rotate(8deg); opacity: 0; }
+      48% { opacity: 1; }
+      72%, 100% { transform: translateX(48%) rotate(8deg); opacity: 0; }
+    }
+
+    @keyframes grow {
+      from { width: 0; }
+      to { width: var(--w); }
+    }
+
+    @media (max-width: 980px) {
+      body {
+        display: block;
+      }
+
+      .px-section {
+        min-height: auto;
+      }
+
+      .px-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .px-card,
+      .px-card-main {
+        min-height: auto;
+        margin: 0;
+      }
+
+      .px-orbit {
+        width: 380px;
+        height: 380px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      body {
+        padding: 16px 10px;
+      }
+
+      .px-panel {
+        padding: 10px;
+        border-radius: 26px;
+      }
+
+      .px-card,
+      .px-card-main {
+        padding: 26px 22px;
+        border-radius: 22px;
+      }
+
+      .px-topline {
+        margin-bottom: 30px;
+      }
+
+      .px-icon {
+        width: 46px;
+        height: 46px;
+      }
+
+      .px-number {
+        letter-spacing: -3px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section class="px-section">
+    <div class="px-aura"></div>
+    <div class="px-grid-lines"></div>
+    <div class="px-orbit"></div>
+
+    <div class="px-panel">
+      <article class="px-card">
+        <div class="px-topline">
+          <span class="px-pill"><span class="px-dot"></span> Confiance</span>
+          <div class="px-icon">✓</div>
+        </div>
+
+        <div class="px-number">+100</div>
+        <h2 class="px-title">Clients satisfaits</h2>
+        <p class="px-text">Des réparations propres, rapides et réalisées avec soin pour redonner vie à votre smartphone.</p>
+
+        <div class="px-progress"><span style="--w: 88%"></span></div>
+        <div class="px-mini">100</div>
+      </article>
+
+      <article class="px-card px-card-main">
+        <div class="px-topline">
+          <span class="px-pill"><span class="px-dot"></span> Réparation express</span>
+          <div class="px-icon">⚡</div>
+        </div>
+
+        <div class="px-number">30<small>min</small></div>
+        <h2 class="px-title">Un délai moyen qui change tout</h2>
+        <p class="px-text">Écran, batterie, vitre arrière, diagnostic : Phone Xpress va droit au problème pour vous faire gagner du temps.</p>
+
+        <div class="px-cta">
+          <a class="px-button" href="https://akalayonagency.github.io/PhoneXpress/" target="_blank" rel="noopener">Lancer le diagnostic</a>
+          <span class="px-ghost">Demande en ligne rapide</span>
+        </div>
+
+        <div class="px-progress"><span style="--w: 96%"></span></div>
+        <div class="px-mini">30</div>
+      </article>
+
+      <article class="px-card">
+        <div class="px-topline">
+          <span class="px-pill"><span class="px-dot"></span> Avis Google</span>
+          <div class="px-icon">★</div>
+        </div>
+
+        <div class="px-number">4.7<small>/5</small></div>
+        <h2 class="px-title">Ils nous recommandent</h2>
+        <p class="px-text">Plus de 120 avis clients : la preuve sociale qui rassure avant même la prise de contact.</p>
+
+        <div class="px-stars" aria-label="Note Google 4.7 sur 5">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+        </div>
+
+        <div class="px-review-box">
+          <script src="https://elfsightcdn.com/platform.js" async></script>
+          <div class="elfsight-app-5f89ed93-18d6-45b4-9700-fc37cce6187b" data-elfsight-app-lazy></div>
+        </div>
+      </article>
     </div>
-
-  </div>
-
-</section>
-
-<style>
-  .px-stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    background: transparent; /* IMPORTANT */
-    color: white;
-    max-width: 1200px;
-    margin: 60px auto;
-    gap: 20px;
-  }
-
-  .px-stat {
-    text-align: center;
-    padding: 50px 25px;
-    border-radius: 20px;
-    background: rgba(0,0,0,0.55); /* effet glass */
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.1);
-    box-shadow: 0 0 30px rgba(20,151,232,0.25);
-  }
-
-  .px-center {
-    background: linear-gradient(
-      135deg,
-      rgba(20,151,232,0.25),
-      rgba(0,0,0,0.6)
-    );
-  }
-
-  .px-title {
-    font-size: clamp(26px, 4vw, 50px);
-    font-weight: 300;
-    margin-bottom: 15px;
-  }
-
-  .px-big {
-    font-size: clamp(40px, 6vw, 80px);
-    font-weight: 800;
-    text-shadow: 0 0 20px rgba(20,151,232,0.7);
-    margin-bottom: 10px;
-  }
-
-  .px-label {
-    font-size: 18px;
-    color: rgba(255,255,255,0.85);
-    text-decoration: underline;
-    text-underline-offset: 6px;
-  }
-
-  .px-reviews {
-    margin-top: 20px;
-  }
-
-  /* Mobile */
-  @media (max-width: 768px) {
-    .px-stats {
-      grid-template-columns: 1fr;
-    }
-
-    .px-stat {
-      padding: 35px 20px;
-    }
-  }
-</style>
+  </section>
+</body>
+</html>
