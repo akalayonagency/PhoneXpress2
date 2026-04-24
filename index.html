@@ -3,223 +3,189 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Phone Xpress - Stats & Avis</title>
+  <title>Phone Xpress - Expérience Premium</title>
 
   <style>
     :root {
       --blue: #1497e8;
-      --blue-soft: rgba(20, 151, 232, 0.45);
-      --blue-deep: #035d9c;
+      --blue-2: #44c7ff;
+      --blue-deep: #045a95;
       --white: #ffffff;
-      --text-soft: rgba(255,255,255,0.78);
-      --glass: rgba(4, 13, 22, 0.58);
-      --glass-strong: rgba(4, 13, 22, 0.78);
+      --soft: rgba(255,255,255,0.78);
+      --glass: rgba(4, 13, 22, 0.54);
+      --glass-strong: rgba(3, 16, 28, 0.72);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
-    html,
-    body {
+    html, body {
       margin: 0;
+      width: 100%;
       min-height: 100%;
-      font-family: Arial, Helvetica, sans-serif;
       background: transparent;
       color: var(--white);
+      font-family: Arial, Helvetica, sans-serif;
       overflow-x: hidden;
     }
 
     body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 32px 14px;
+      padding: 26px 12px;
     }
 
-    .px-section {
+    .px-experience {
       position: relative;
-      width: min(1280px, 100%);
-      min-height: 620px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: min(1320px, 100%);
+      margin: 0 auto;
+      padding: 18px;
       background: transparent;
       isolation: isolate;
     }
 
-    .px-aura {
+    .px-bg-aura {
       position: absolute;
-      inset: 8% 4%;
+      inset: -8% 0;
+      z-index: -4;
       background:
-        radial-gradient(circle at 18% 20%, rgba(20,151,232,0.42), transparent 31%),
-        radial-gradient(circle at 86% 12%, rgba(255,255,255,0.14), transparent 26%),
-        radial-gradient(circle at 50% 90%, rgba(20,151,232,0.24), transparent 34%);
-      filter: blur(30px);
-      opacity: 0.95;
-      z-index: -3;
-      animation: breathe 7s ease-in-out infinite alternate;
+        radial-gradient(circle at 16% 32%, rgba(20,151,232,0.36), transparent 28%),
+        radial-gradient(circle at 50% 12%, rgba(255,255,255,0.13), transparent 23%),
+        radial-gradient(circle at 88% 62%, rgba(20,151,232,0.31), transparent 29%);
+      filter: blur(34px);
+      animation: auraMove 7s ease-in-out infinite alternate;
     }
 
-    .px-grid-lines {
+    .px-tech-grid {
       position: absolute;
       inset: 0;
-      opacity: 0.16;
+      z-index: -3;
+      opacity: 0.14;
       background-image:
-        linear-gradient(rgba(255,255,255,0.12) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.12) 1px, transparent 1px);
-      background-size: 64px 64px;
-      mask-image: radial-gradient(circle, #000 0%, transparent 72%);
-      z-index: -2;
+        linear-gradient(rgba(255,255,255,0.14) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.14) 1px, transparent 1px);
+      background-size: 58px 58px;
+      mask-image: radial-gradient(circle at center, #000 0%, transparent 72%);
     }
 
-    .px-orbit {
-      position: absolute;
-      width: 520px;
-      height: 520px;
-      border: 1px solid rgba(20,151,232,0.22);
-      border-radius: 50%;
-      z-index: -1;
-      animation: rotate 22s linear infinite;
-    }
-
-    .px-orbit::before,
-    .px-orbit::after {
-      content: "";
-      position: absolute;
-      width: 13px;
-      height: 13px;
-      border-radius: 999px;
-      background: var(--blue);
-      box-shadow: 0 0 22px var(--blue), 0 0 55px var(--blue);
-    }
-
-    .px-orbit::before {
-      top: 48px;
-      left: 96px;
-    }
-
-    .px-orbit::after {
-      right: 72px;
-      bottom: 90px;
-      width: 9px;
-      height: 9px;
-      opacity: 0.75;
-    }
-
-    .px-panel {
+    .px-shell {
       position: relative;
-      width: 100%;
-      display: grid;
-      grid-template-columns: 0.95fr 1.25fr 0.95fr;
-      gap: 22px;
-      align-items: stretch;
-      padding: 18px;
-      border-radius: 34px;
-      background:
-        linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.03)),
-        rgba(0,0,0,0.12);
-      border: 1px solid rgba(255,255,255,0.14);
-      backdrop-filter: blur(14px);
-      box-shadow:
-        0 30px 90px rgba(0,0,0,0.38),
-        inset 0 0 0 1px rgba(255,255,255,0.04);
       overflow: hidden;
+      border-radius: 36px;
+      padding: 20px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.14), rgba(255,255,255,0.035)),
+        rgba(0,0,0,0.10);
+      border: 1px solid rgba(255,255,255,0.15);
+      box-shadow:
+        0 28px 90px rgba(0,0,0,0.34),
+        inset 0 0 0 1px rgba(255,255,255,0.05);
+      backdrop-filter: blur(16px);
     }
 
-    .px-panel::before {
+    .px-shell::before {
       content: "";
       position: absolute;
-      inset: -40%;
-      background: linear-gradient(
-        115deg,
-        transparent 42%,
-        rgba(20,151,232,0.12) 45%,
-        rgba(255,255,255,0.58) 48%,
-        rgba(20,151,232,0.18) 51%,
-        transparent 55%
-      );
-      transform: translateX(-35%) rotate(8deg);
-      animation: scan 6.5s ease-in-out infinite;
+      inset: -60%;
+      background: conic-gradient(from 120deg, transparent, rgba(20,151,232,0.26), rgba(255,255,255,0.18), transparent 28%);
+      animation: spinLight 14s linear infinite;
       pointer-events: none;
+      opacity: 0.7;
+    }
+
+    .px-shell::after {
+      content: "";
+      position: absolute;
+      inset: 1px;
+      border-radius: 35px;
+      background: linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.16));
+      pointer-events: none;
+    }
+
+    .px-content {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 0.88fr 1.18fr 0.88fr;
+      gap: 18px;
+      align-items: stretch;
     }
 
     .px-card {
       position: relative;
+      overflow: hidden;
       min-height: 380px;
-      padding: 34px 30px;
+      padding: 30px 28px;
       border-radius: 28px;
       background:
-        radial-gradient(circle at top left, rgba(20,151,232,0.18), transparent 36%),
-        linear-gradient(145deg, rgba(255,255,255,0.10), rgba(255,255,255,0.025)),
+        radial-gradient(circle at 18% 10%, rgba(255,255,255,0.13), transparent 29%),
+        radial-gradient(circle at 88% 80%, rgba(20,151,232,0.22), transparent 34%),
+        linear-gradient(145deg, rgba(255,255,255,0.10), rgba(255,255,255,0.02)),
         var(--glass);
       border: 1px solid rgba(255,255,255,0.16);
       box-shadow:
-        0 22px 70px rgba(0,0,0,0.28),
-        inset 0 0 0 1px rgba(255,255,255,0.04);
-      overflow: hidden;
-      transform-style: preserve-3d;
-      transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+        0 22px 62px rgba(0,0,0,0.28),
+        inset 0 0 0 1px rgba(255,255,255,0.05);
+      transform: translateY(18px);
+      opacity: 0;
+      animation: cardIn 0.9s cubic-bezier(.2,.8,.2,1) forwards;
+      transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
     }
+
+    .px-card:nth-child(2) { animation-delay: .12s; }
+    .px-card:nth-child(3) { animation-delay: .24s; }
 
     .px-card:hover {
-      transform: translateY(-10px) scale(1.015);
-      border-color: rgba(20,151,232,0.58);
-      box-shadow:
-        0 34px 90px rgba(0,0,0,0.46),
-        0 0 58px rgba(20,151,232,0.22),
-        inset 0 0 0 1px rgba(255,255,255,0.07);
-    }
-
-    .px-card::after {
-      content: "";
-      position: absolute;
-      width: 220px;
-      height: 220px;
-      right: -90px;
-      bottom: -90px;
-      border-radius: 999px;
-      background: radial-gradient(circle, rgba(20,151,232,0.34), transparent 68%);
-      filter: blur(2px);
-      pointer-events: none;
-    }
-
-    .px-card-main {
-      min-height: 420px;
-      margin-top: 0;
-      margin-bottom: 0;
-      padding: 36px 30px;
-      background:
-        radial-gradient(circle at 50% 0%, rgba(20,151,232,0.48), transparent 38%),
-        linear-gradient(145deg, rgba(20,151,232,0.24), rgba(0,0,0,0.26)),
-        var(--glass-strong);
+      transform: translateY(-7px) scale(1.01);
       border-color: rgba(20,151,232,0.52);
       box-shadow:
-        0 34px 100px rgba(0,0,0,0.45),
-        0 0 60px rgba(20,151,232,0.18),
+        0 34px 82px rgba(0,0,0,0.44),
+        0 0 48px rgba(20,151,232,0.24),
         inset 0 0 0 1px rgba(255,255,255,0.08);
     }
 
-    .px-topline {
+    .px-card::before {
+      content: "";
+      position: absolute;
+      top: -80%;
+      left: -85%;
+      width: 110%;
+      height: 240%;
+      transform: rotate(18deg);
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.16), rgba(20,151,232,0.34), transparent);
+      animation: lightSweep 5.5s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .px-main {
+      min-height: 420px;
+      padding: 34px 34px;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(68,199,255,0.34), transparent 35%),
+        radial-gradient(circle at 80% 90%, rgba(20,151,232,0.28), transparent 36%),
+        linear-gradient(145deg, rgba(20,151,232,0.28), rgba(0,0,0,0.21)),
+        var(--glass-strong);
+      border-color: rgba(20,151,232,0.5);
+    }
+
+    .px-head {
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       gap: 12px;
-      margin-bottom: 42px;
+      margin-bottom: 26px;
     }
 
     .px-pill {
       display: inline-flex;
       align-items: center;
       gap: 8px;
+      max-width: 100%;
       padding: 9px 13px;
       border-radius: 999px;
       background: rgba(20,151,232,0.15);
       border: 1px solid rgba(20,151,232,0.38);
-      color: rgba(255,255,255,0.9);
+      color: rgba(255,255,255,0.92);
       font-size: 12px;
-      font-weight: 900;
-      letter-spacing: 0.9px;
+      font-weight: 950;
+      letter-spacing: 0.8px;
       text-transform: uppercase;
       white-space: nowrap;
     }
@@ -227,78 +193,85 @@
     .px-dot {
       width: 8px;
       height: 8px;
-      border-radius: 999px;
+      flex: 0 0 8px;
+      border-radius: 50%;
       background: var(--blue);
       box-shadow: 0 0 15px var(--blue);
     }
 
     .px-icon {
-      width: 52px;
-      height: 52px;
+      width: 50px;
+      height: 50px;
+      flex: 0 0 50px;
       display: grid;
       place-items: center;
       border-radius: 18px;
-      background: rgba(255,255,255,0.09);
+      background: rgba(255,255,255,0.10);
       border: 1px solid rgba(255,255,255,0.15);
       font-size: 25px;
-      box-shadow: inset 0 0 18px rgba(255,255,255,0.04);
+      box-shadow: inset 0 0 22px rgba(255,255,255,0.06);
     }
 
     .px-number {
       display: flex;
       align-items: flex-end;
-      gap: 10px;
-      margin-bottom: 24px;
-      line-height: 0.85;
-      font-size: clamp(62px, 8vw, 118px);
-      font-weight: 950;
+      gap: 8px;
+      margin: 0 0 18px;
+      font-size: clamp(56px, 7.6vw, 110px);
+      line-height: 0.86;
+      font-weight: 1000;
       letter-spacing: -5px;
       color: #fff;
       text-shadow:
-        0 0 20px rgba(20,151,232,0.92),
-        0 0 54px rgba(20,151,232,0.42);
+        0 0 17px rgba(20,151,232,0.95),
+        0 0 48px rgba(20,151,232,0.42);
     }
 
-    .px-card-main .px-number {
-      font-size: clamp(92px, 11vw, 168px);
-      letter-spacing: -7px;
+    .px-main .px-number {
+      font-size: clamp(78px, 10vw, 142px);
     }
 
     .px-number small {
-      margin-bottom: 10px;
-      font-size: 0.31em;
+      margin-bottom: 8px;
+      font-size: .34em;
       letter-spacing: 0;
-      color: rgba(255,255,255,0.9);
+      font-weight: 950;
     }
 
     .px-title {
       margin: 0 0 12px;
-      font-size: clamp(23px, 3vw, 38px);
-      line-height: 1.05;
-      font-weight: 900;
-      letter-spacing: -1px;
+      max-width: 390px;
+      font-size: clamp(25px, 3vw, 38px);
+      line-height: 0.96;
+      letter-spacing: -1.2px;
       text-transform: uppercase;
+      font-weight: 1000;
+    }
+
+    .px-main .px-title {
+      font-size: clamp(30px, 3.5vw, 46px);
     }
 
     .px-text {
       margin: 0;
-      max-width: 360px;
-      color: var(--text-soft);
+      max-width: 390px;
+      color: var(--soft);
       font-size: 16px;
-      line-height: 1.58;
+      line-height: 1.55;
+      font-weight: 600;
     }
 
-    .px-card-main .px-text {
-      font-size: 18px;
-      color: rgba(255,255,255,0.84);
+    .px-main .px-text {
+      font-size: 17px;
+      color: rgba(255,255,255,0.86);
     }
 
     .px-progress {
       position: relative;
       height: 8px;
-      margin-top: 32px;
+      margin-top: 30px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.13);
       overflow: hidden;
     }
 
@@ -307,17 +280,18 @@
       inset: 0 auto 0 0;
       width: var(--w);
       border-radius: inherit;
-      background: linear-gradient(90deg, var(--blue-deep), var(--blue), #ffffff);
-      box-shadow: 0 0 20px rgba(20,151,232,0.7);
-      animation: grow 1.25s ease both;
+      background: linear-gradient(90deg, var(--blue-deep), var(--blue), #fff);
+      box-shadow: 0 0 18px rgba(20,151,232,0.8);
+      transform-origin: left;
+      animation: progressGrow 1.4s ease both;
     }
 
     .px-cta {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
       align-items: center;
-      margin-top: 34px;
+      gap: 12px;
+      margin-top: 28px;
     }
 
     .px-button {
@@ -328,45 +302,48 @@
       padding: 0 22px;
       border-radius: 17px;
       background: linear-gradient(135deg, var(--blue), var(--blue-deep));
-      color: #fff;
+      color: white;
       text-decoration: none;
       font-size: 14px;
-      font-weight: 950;
-      text-transform: uppercase;
+      font-weight: 1000;
       letter-spacing: 0.7px;
-      box-shadow: 0 18px 38px rgba(20,151,232,0.38);
-      transition: transform 0.22s ease, box-shadow 0.22s ease;
+      text-transform: uppercase;
+      box-shadow: 0 18px 38px rgba(20,151,232,0.42);
+      transition: transform .22s ease, box-shadow .22s ease;
     }
 
     .px-button:hover {
       transform: translateY(-3px);
-      box-shadow: 0 25px 52px rgba(20,151,232,0.55);
+      box-shadow: 0 25px 52px rgba(20,151,232,0.62);
     }
 
     .px-ghost {
-      color: rgba(255,255,255,0.76);
+      color: rgba(255,255,255,0.72);
       font-size: 14px;
-      font-weight: 700;
+      font-weight: 800;
     }
 
     .px-stars {
       display: flex;
       gap: 6px;
-      margin: 26px 0 16px;
+      margin: 22px 0 12px;
       color: var(--blue);
-      font-size: 24px;
-      text-shadow: 0 0 16px rgba(20,151,232,0.8);
+      font-size: 23px;
+      letter-spacing: 1px;
+      text-shadow: 0 0 16px rgba(20,151,232,0.85);
     }
 
     .px-review-box {
       position: relative;
-      margin-top: 18px;
-      padding: 14px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.12);
-      max-height: 160px;
+      margin-top: 16px;
+      padding: 13px;
+      min-height: 120px;
+      max-height: 152px;
       overflow: hidden;
+      border-radius: 20px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.03));
+      border: 1px solid rgba(255,255,255,0.14);
     }
 
     .px-review-box::after {
@@ -375,158 +352,180 @@
       left: 0;
       right: 0;
       bottom: 0;
-      height: 48px;
-      background: linear-gradient(transparent, rgba(4, 13, 22, 0.96));
+      height: 40px;
+      background: linear-gradient(transparent, rgba(4,13,22,0.94));
       pointer-events: none;
     }
 
-    .px-mini {
+    .px-watermark {
       position: absolute;
-      right: 22px;
-      bottom: 20px;
-      color: rgba(255,255,255,0.18);
-      font-size: 72px;
-      font-weight: 950;
+      right: 20px;
+      bottom: 12px;
+      color: rgba(255,255,255,0.13);
+      font-size: 70px;
+      line-height: 1;
+      font-weight: 1000;
       letter-spacing: -4px;
       pointer-events: none;
     }
 
-    @keyframes breathe {
-      from { transform: scale(0.98); opacity: 0.72; }
-      to { transform: scale(1.04); opacity: 1; }
+    .px-main .px-watermark { font-size: 82px; }
+
+    .px-bottom-strip {
+      position: relative;
+      z-index: 3;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 14px;
     }
 
-    @keyframes rotate {
+    .px-chip {
+      min-height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.82);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      font-size: 12px;
+      backdrop-filter: blur(10px);
+    }
+
+    .px-chip span {
+      color: var(--blue-2);
+      text-shadow: 0 0 14px rgba(20,151,232,0.75);
+      font-size: 18px;
+    }
+
+    @keyframes auraMove {
+      from { transform: scale(.98) translateY(4px); opacity: .78; }
+      to { transform: scale(1.035) translateY(-6px); opacity: 1; }
+    }
+
+    @keyframes spinLight {
       to { transform: rotate(360deg); }
     }
 
-    @keyframes scan {
-      0%, 35% { transform: translateX(-48%) rotate(8deg); opacity: 0; }
-      48% { opacity: 1; }
-      72%, 100% { transform: translateX(48%) rotate(8deg); opacity: 0; }
+    @keyframes cardIn {
+      to { transform: translateY(0); opacity: 1; }
     }
 
-    @keyframes grow {
-      from { width: 0; }
-      to { width: var(--w); }
+    @keyframes lightSweep {
+      0%, 38% { transform: translateX(-28%) rotate(18deg); opacity: 0; }
+      50% { opacity: 1; }
+      72%, 100% { transform: translateX(150%) rotate(18deg); opacity: 0; }
     }
 
-    @media (max-width: 980px) {
-      body {
-        display: block;
-      }
+    @keyframes progressGrow {
+      from { transform: scaleX(0); }
+      to { transform: scaleX(1); }
+    }
 
-      .px-section {
-        min-height: auto;
-      }
-
-      .px-panel {
+    @media (max-width: 1050px) {
+      .px-content {
         grid-template-columns: 1fr;
       }
 
       .px-card,
-      .px-card-main {
+      .px-main {
         min-height: auto;
-        margin: 0;
       }
 
-      .px-orbit {
-        width: 380px;
-        height: 380px;
+      .px-bottom-strip {
+        grid-template-columns: repeat(2, 1fr);
       }
     }
 
-    @media (max-width: 520px) {
-      body {
-        padding: 16px 10px;
-      }
-
-      .px-panel {
-        padding: 10px;
-        border-radius: 26px;
-      }
-
-      .px-card,
-      .px-card-main {
-        padding: 26px 22px;
-        border-radius: 22px;
-      }
-
-      .px-topline {
-        margin-bottom: 30px;
-      }
-
-      .px-icon {
-        width: 46px;
-        height: 46px;
-      }
-
-      .px-number {
-        letter-spacing: -3px;
-      }
+    @media (max-width: 560px) {
+      body { padding: 14px 8px; }
+      .px-experience { padding: 6px; }
+      .px-shell { padding: 10px; border-radius: 26px; }
+      .px-shell::after { border-radius: 25px; }
+      .px-card, .px-main { padding: 24px 20px; border-radius: 22px; }
+      .px-head { margin-bottom: 24px; }
+      .px-icon { width: 44px; height: 44px; flex-basis: 44px; }
+      .px-pill { font-size: 11px; padding: 8px 11px; }
+      .px-number { letter-spacing: -3px; }
+      .px-bottom-strip { grid-template-columns: 1fr; }
+      .px-watermark { font-size: 54px; }
     }
   </style>
 </head>
+
 <body>
-  <section class="px-section">
-    <div class="px-aura"></div>
-    <div class="px-grid-lines"></div>
-    <div class="px-orbit"></div>
+  <main class="px-experience">
+    <div class="px-bg-aura"></div>
+    <div class="px-tech-grid"></div>
 
-    <div class="px-panel">
-      <article class="px-card">
-        <div class="px-topline">
-          <span class="px-pill"><span class="px-dot"></span> Confiance</span>
-          <div class="px-icon">✓</div>
-        </div>
+    <section class="px-shell" aria-label="Avantages Phone Xpress">
+      <div class="px-content">
+        <article class="px-card">
+          <div class="px-head">
+            <span class="px-pill"><span class="px-dot"></span> Confiance</span>
+            <div class="px-icon">✓</div>
+          </div>
 
-        <div class="px-number">+100</div>
-        <h2 class="px-title">Clients satisfaits</h2>
-        <p class="px-text">Des réparations propres, rapides et réalisées avec soin pour redonner vie à votre smartphone.</p>
+          <div class="px-number" data-target="100">+100</div>
+          <h2 class="px-title">Clients satisfaits</h2>
+          <p class="px-text">Des réparations propres, rapides et réalisées avec soin pour redonner vie à votre smartphone.</p>
+          <div class="px-progress"><span style="--w:88%"></span></div>
+          
+        </article>
 
-        <div class="px-progress"><span style="--w: 88%"></span></div>
-        <div class="px-mini">100</div>
-      </article>
+        <article class="px-card px-main">
+          <div class="px-head">
+            <span class="px-pill"><span class="px-dot"></span> Réparation express</span>
+            <div class="px-icon">⚡</div>
+          </div>
 
-      <article class="px-card px-card-main">
-        <div class="px-topline">
-          <span class="px-pill"><span class="px-dot"></span> Réparation express</span>
-          <div class="px-icon">⚡</div>
-        </div>
+          <div class="px-number">30<small>min</small></div>
+          <h2 class="px-title">Un délai moyen qui change tout</h2>
+          <p class="px-text">Écran, batterie, vitre arrière, diagnostic : Phone Xpress va droit au problème pour vous faire gagner du temps.</p>
 
-        <div class="px-number">30<small>min</small></div>
-        <h2 class="px-title">Un délai moyen qui change tout</h2>
-        <p class="px-text">Écran, batterie, vitre arrière, diagnostic : Phone Xpress va droit au problème pour vous faire gagner du temps.</p>
+          <div class="px-cta">
+            <a class="px-button" href="https://akalayonagency.github.io/PhoneXpress/" target="_blank" rel="noopener">Lancer le diagnostic</a>
+            <span class="px-ghost">Demande en ligne rapide</span>
+          </div>
 
-        <div class="px-cta">
-          <a class="px-button" href="https://akalayonagency.github.io/PhoneXpress/" target="_blank" rel="noopener">Lancer le diagnostic</a>
-          <span class="px-ghost">Demande en ligne rapide</span>
-        </div>
+          <div class="px-progress"><span style="--w:96%"></span></div>
+          
+        </article>
 
-        <div class="px-progress"><span style="--w: 96%"></span></div>
-        <div class="px-mini">30</div>
-      </article>
+        <article class="px-card">
+          <div class="px-head">
+            <span class="px-pill"><span class="px-dot"></span> Avis Google</span>
+            <div class="px-icon">★</div>
+          </div>
 
-      <article class="px-card">
-        <div class="px-topline">
-          <span class="px-pill"><span class="px-dot"></span> Avis Google</span>
-          <div class="px-icon">★</div>
-        </div>
+          <div class="px-number">4.7<small>/5</small></div>
+          <h2 class="px-title">Ils nous recommandent</h2>
+          <p class="px-text">Plus de 120 avis clients : la preuve sociale qui rassure avant même la prise de contact.</p>
 
-        <div class="px-number">4.7<small>/5</small></div>
-        <h2 class="px-title">Ils nous recommandent</h2>
-        <p class="px-text">Plus de 120 avis clients : la preuve sociale qui rassure avant même la prise de contact.</p>
+          <div class="px-stars" aria-label="Note Google 4.7 sur 5">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+          </div>
 
-        <div class="px-stars" aria-label="Note Google 4.7 sur 5">
-          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-        </div>
+          <div class="px-review-box">
+            <script src="https://elfsightcdn.com/platform.js" async></script>
+            <div class="elfsight-app-5f89ed93-18d6-45b4-9700-fc37cce6187b" data-elfsight-app-lazy></div>
+          </div>
+        </article>
+      </div>
 
-        <div class="px-review-box">
-          <script src="https://elfsightcdn.com/platform.js" async></script>
-          <div class="elfsight-app-5f89ed93-18d6-45b4-9700-fc37cce6187b" data-elfsight-app-lazy></div>
-        </div>
-      </article>
-    </div>
-  </section>
+      <div class="px-bottom-strip">
+        <div class="px-chip"><span>⚡</span> Diagnostic rapide</div>
+        <div class="px-chip"><span>🛠</span> Réparation soignée</div>
+        <div class="px-chip"><span>📱</span> Toutes marques</div>
+        <div class="px-chip"><span>★</span> Avis vérifiés</div>
+      </div>
+    </section>
+  </main>
 </body>
 </html>
