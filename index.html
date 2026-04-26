@@ -16,20 +16,29 @@
       --glass-strong: rgba(3, 16, 28, 0.72);
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
-    html, body {
+    html,
+    body {
       margin: 0;
       width: 100%;
       min-height: 100%;
       background: transparent;
       color: var(--white);
       font-family: Arial, Helvetica, sans-serif;
-      overflow-x: hidden;
+      overflow: hidden;
+      scrollbar-width: none;
+    }
+
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar {
+      display: none;
     }
 
     body {
-      padding: 26px 12px;
+      padding: 0;
     }
 
     .px-experience {
@@ -39,30 +48,20 @@
       padding: 18px;
       background: transparent;
       isolation: isolate;
-    }
-
-    .px-bg-aura {
-      position: absolute;
-      inset: -8% 0;
-      z-index: -4;
-      background:
-        radial-gradient(circle at 16% 32%, rgba(20,151,232,0.36), transparent 28%),
-        radial-gradient(circle at 50% 12%, rgba(255,255,255,0.13), transparent 23%),
-        radial-gradient(circle at 88% 62%, rgba(20,151,232,0.31), transparent 29%);
-      filter: blur(34px);
-      animation: auraMove 7s ease-in-out infinite alternate;
+      overflow: hidden;
     }
 
     .px-tech-grid {
       position: absolute;
-      inset: 0;
-      z-index: -3;
-      opacity: 0.14;
+      inset: 18px;
+      z-index: -1;
+      opacity: 0.10;
       background-image:
         linear-gradient(rgba(255,255,255,0.14) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,0.14) 1px, transparent 1px);
       background-size: 58px 58px;
-      mask-image: radial-gradient(circle at center, #000 0%, transparent 72%);
+      border-radius: 36px;
+      pointer-events: none;
     }
 
     .px-shell {
@@ -74,20 +73,7 @@
         linear-gradient(135deg, rgba(255,255,255,0.14), rgba(255,255,255,0.035)),
         rgba(0,0,0,0.10);
       border: 1px solid rgba(255,255,255,0.15);
-      box-shadow:
-        0 28px 90px rgba(0,0,0,0.34),
-        inset 0 0 0 1px rgba(255,255,255,0.05);
       backdrop-filter: blur(16px);
-    }
-
-    .px-shell::before {
-      content: "";
-      position: absolute;
-      inset: -60%;
-      background: conic-gradient(from 120deg, transparent, rgba(20,151,232,0.26), rgba(255,255,255,0.18), transparent 28%);
-      animation: spinLight 14s linear infinite;
-      pointer-events: none;
-      opacity: 0.7;
     }
 
     .px-shell::after {
@@ -120,25 +106,24 @@
         linear-gradient(145deg, rgba(255,255,255,0.10), rgba(255,255,255,0.02)),
         var(--glass);
       border: 1px solid rgba(255,255,255,0.16);
-      box-shadow:
-        0 22px 62px rgba(0,0,0,0.28),
-        inset 0 0 0 1px rgba(255,255,255,0.05);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
       transform: translateY(18px);
       opacity: 0;
       animation: cardIn 0.9s cubic-bezier(.2,.8,.2,1) forwards;
-      transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+      transition: transform .35s ease, border-color .35s ease;
     }
 
-    .px-card:nth-child(2) { animation-delay: .12s; }
-    .px-card:nth-child(3) { animation-delay: .24s; }
+    .px-card:nth-child(2) {
+      animation-delay: .12s;
+    }
+
+    .px-card:nth-child(3) {
+      animation-delay: .24s;
+    }
 
     .px-card:hover {
-      transform: translateY(-7px) scale(1.01);
+      transform: translateY(-4px);
       border-color: rgba(20,151,232,0.52);
-      box-shadow:
-        0 34px 82px rgba(0,0,0,0.44),
-        0 0 48px rgba(20,151,232,0.24),
-        inset 0 0 0 1px rgba(255,255,255,0.08);
     }
 
     .px-card::before {
@@ -149,14 +134,20 @@
       width: 110%;
       height: 240%;
       transform: rotate(18deg);
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.16), rgba(20,151,232,0.34), transparent);
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,0.14),
+        rgba(20,151,232,0.25),
+        transparent
+      );
       animation: lightSweep 5.5s ease-in-out infinite;
       pointer-events: none;
     }
 
     .px-main {
       min-height: 420px;
-      padding: 34px 34px;
+      padding: 34px;
       background:
         radial-gradient(circle at 50% 0%, rgba(68,199,255,0.34), transparent 35%),
         radial-gradient(circle at 80% 90%, rgba(20,151,232,0.28), transparent 36%),
@@ -177,7 +168,6 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      max-width: 100%;
       padding: 9px 13px;
       border-radius: 999px;
       background: rgba(20,151,232,0.15);
@@ -193,10 +183,8 @@
     .px-dot {
       width: 8px;
       height: 8px;
-      flex: 0 0 8px;
       border-radius: 50%;
       background: var(--blue);
-      box-shadow: 0 0 15px var(--blue);
     }
 
     .px-icon {
@@ -209,7 +197,6 @@
       background: rgba(255,255,255,0.10);
       border: 1px solid rgba(255,255,255,0.15);
       font-size: 25px;
-      box-shadow: inset 0 0 22px rgba(255,255,255,0.06);
     }
 
     .px-number {
@@ -240,14 +227,11 @@
 
     .px-title {
       margin: 0 0 12px;
-      max-width: 100%;
       font-size: clamp(24px, 2.5vw, 34px);
       line-height: 0.98;
       letter-spacing: -1px;
       text-transform: uppercase;
       font-weight: 1000;
-      overflow-wrap: normal;
-      word-break: normal;
     }
 
     .px-main .px-title {
@@ -283,7 +267,6 @@
       width: var(--w);
       border-radius: inherit;
       background: linear-gradient(90deg, var(--blue-deep), var(--blue), #fff);
-      box-shadow: 0 0 18px rgba(20,151,232,0.8);
       transform-origin: left;
       animation: progressGrow 1.4s ease both;
     }
@@ -310,13 +293,11 @@
       font-weight: 1000;
       letter-spacing: 0.7px;
       text-transform: uppercase;
-      box-shadow: 0 18px 38px rgba(20,151,232,0.42);
-      transition: transform .22s ease, box-shadow .22s ease;
+      transition: transform .22s ease;
     }
 
     .px-button:hover {
       transform: translateY(-3px);
-      box-shadow: 0 25px 52px rgba(20,151,232,0.62);
     }
 
     .px-ghost {
@@ -332,7 +313,6 @@
       color: var(--blue);
       font-size: 23px;
       letter-spacing: 1px;
-      text-shadow: 0 0 16px rgba(20,151,232,0.85);
     }
 
     .px-review-box {
@@ -343,8 +323,7 @@
       max-height: 152px;
       overflow: hidden;
       border-radius: 20px;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.03));
+      background: linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.03));
       border: 1px solid rgba(255,255,255,0.14);
     }
 
@@ -359,45 +338,45 @@
       pointer-events: none;
     }
 
-    .px-watermark {
-      position: absolute;
-      right: 20px;
-      bottom: 12px;
-      color: rgba(255,255,255,0.13);
-      font-size: 70px;
-      line-height: 1;
-      font-weight: 1000;
-      letter-spacing: -4px;
-      pointer-events: none;
-    }
-
-    .px-main .px-watermark { font-size: 82px; }
-
-    @keyframes auraMove {
-      from { transform: scale(.98) translateY(4px); opacity: .78; }
-      to { transform: scale(1.035) translateY(-6px); opacity: 1; }
-    }
-
-    @keyframes spinLight {
-      to { transform: rotate(360deg); }
-    }
-
     @keyframes cardIn {
-      to { transform: translateY(0); opacity: 1; }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
     }
 
     @keyframes lightSweep {
-      0%, 38% { transform: translateX(-28%) rotate(18deg); opacity: 0; }
-      50% { opacity: 1; }
-      72%, 100% { transform: translateX(150%) rotate(18deg); opacity: 0; }
+      0%, 38% {
+        transform: translateX(-28%) rotate(18deg);
+        opacity: 0;
+      }
+
+      50% {
+        opacity: 1;
+      }
+
+      72%, 100% {
+        transform: translateX(150%) rotate(18deg);
+        opacity: 0;
+      }
     }
 
     @keyframes progressGrow {
-      from { transform: scaleX(0); }
-      to { transform: scaleX(1); }
+      from {
+        transform: scaleX(0);
+      }
+
+      to {
+        transform: scaleX(1);
+      }
     }
 
     @media (max-width: 1050px) {
+      html,
+      body {
+        overflow-y: auto;
+      }
+
       .px-content {
         grid-template-columns: 1fr;
       }
@@ -406,86 +385,150 @@
       .px-main {
         min-height: auto;
       }
-
-      .px-bottom-strip {
-        grid-template-columns: repeat(2, 1fr);
-      }
     }
 
     @media (max-width: 560px) {
-      body { padding: 14px 8px; }
-      .px-experience { padding: 6px; }
-      .px-shell { padding: 10px; border-radius: 26px; }
-      .px-shell::after { border-radius: 25px; }
-      .px-card, .px-main { padding: 24px 20px; border-radius: 22px; }
-      .px-head { margin-bottom: 24px; }
-      .px-icon { width: 44px; height: 44px; flex-basis: 44px; }
-      .px-pill { font-size: 11px; padding: 8px 11px; }
-      .px-number { letter-spacing: -3px; }
-      .px-bottom-strip { grid-template-columns: 1fr; }
-      .px-watermark { font-size: 54px; }
+      .px-experience {
+        padding: 8px;
+      }
+
+      .px-shell {
+        padding: 10px;
+        border-radius: 26px;
+      }
+
+      .px-shell::after {
+        border-radius: 25px;
+      }
+
+      .px-card,
+      .px-main {
+        padding: 24px 20px;
+        border-radius: 22px;
+      }
+
+      .px-head {
+        margin-bottom: 24px;
+      }
+
+      .px-icon {
+        width: 44px;
+        height: 44px;
+        flex-basis: 44px;
+      }
+
+      .px-pill {
+        font-size: 11px;
+        padding: 8px 11px;
+      }
+
+      .px-number {
+        letter-spacing: -3px;
+      }
     }
   </style>
 </head>
 
 <body>
   <main class="px-experience">
-    <div class="px-bg-aura"></div>
     <div class="px-tech-grid"></div>
 
     <section class="px-shell" aria-label="Avantages Phone Xpress">
       <div class="px-content">
+
         <article class="px-card">
           <div class="px-head">
-            <span class="px-pill"><span class="px-dot"></span> Confiance</span>
+            <span class="px-pill">
+              <span class="px-dot"></span>
+              Confiance
+            </span>
             <div class="px-icon">✓</div>
           </div>
 
-          <div class="px-number" data-target="100">+100</div>
+          <div class="px-number">+100</div>
           <h2 class="px-title">Clients satisfaits</h2>
-          <p class="px-text">Des réparations propres, rapides et réalisées avec soin pour redonner vie à votre smartphone.</p>
-          <div class="px-progress"><span style="--w:88%"></span></div>
-          
+          <p class="px-text">
+            Des réparations propres, rapides et réalisées avec soin pour redonner vie à votre smartphone.
+          </p>
+
+          <div class="px-progress">
+            <span style="--w:88%"></span>
+          </div>
         </article>
 
         <article class="px-card px-main">
           <div class="px-head">
-            <span class="px-pill"><span class="px-dot"></span> Réparation express</span>
+            <span class="px-pill">
+              <span class="px-dot"></span>
+              Réparation express
+            </span>
             <div class="px-icon">⚡</div>
           </div>
 
-          <div class="px-number">30<small>min</small></div>
+          <div class="px-number">
+            30<small>min</small>
+          </div>
+
           <h2 class="px-title">Un délai moyen qui change tout</h2>
-          <p class="px-text">Écran, batterie, vitre arrière, diagnostic : Phone Xpress va droit au problème pour vous faire gagner du temps.</p>
+
+          <p class="px-text">
+            Écran, batterie, vitre arrière, diagnostic : Phone Xpress va droit au problème pour vous faire gagner du temps.
+          </p>
 
           <div class="px-cta">
-            <a class="px-button" href="https://phonexpress.odoo.com/demande-de-devis" target="_blank" rel="noopener">Lancer le diagnostic</a>
+            <a
+              class="px-button"
+              href="https://phonexpress.odoo.com/demande-de-devis"
+              target="_blank"
+              rel="noopener"
+            >
+              Lancer le diagnostic
+            </a>
+
             <span class="px-ghost">Demande en ligne rapide</span>
           </div>
 
-          <div class="px-progress"><span style="--w:96%"></span></div>
-          
+          <div class="px-progress">
+            <span style="--w:96%"></span>
+          </div>
         </article>
 
         <article class="px-card">
           <div class="px-head">
-            <span class="px-pill"><span class="px-dot"></span> Avis Google</span>
+            <span class="px-pill">
+              <span class="px-dot"></span>
+              Avis Google
+            </span>
             <div class="px-icon">★</div>
           </div>
 
-          <div class="px-number">4.7<small>/5</small></div>
+          <div class="px-number">
+            4.7<small>/5</small>
+          </div>
+
           <h2 class="px-title">Ils nous recommandent</h2>
-          <p class="px-text">Plus de 120 avis clients : la preuve sociale qui rassure avant même la prise de contact.</p>
+
+          <p class="px-text">
+            Plus de 120 avis clients : la preuve sociale qui rassure avant même la prise de contact.
+          </p>
 
           <div class="px-stars" aria-label="Note Google 4.7 sur 5">
-            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            <span>★</span>
+            <span>★</span>
+            <span>★</span>
+            <span>★</span>
+            <span>★</span>
           </div>
 
           <div class="px-review-box">
             <script src="https://elfsightcdn.com/platform.js" async></script>
-            <div class="elfsight-app-5f89ed93-18d6-45b4-9700-fc37cce6187b" data-elfsight-app-lazy></div>
+            <div
+              class="elfsight-app-5f89ed93-18d6-45b4-9700-fc37cce6187b"
+              data-elfsight-app-lazy
+            ></div>
           </div>
         </article>
+
       </div>
     </section>
   </main>
