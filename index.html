@@ -43,15 +43,14 @@
     }
 
     .px-experience {
-      position: relative;
-      width: min(1320px, 100%);
-      margin: 0 auto;
-      padding: 18px;
-      background: transparent;
-      isolation: isolate;
-      overflow: hidden;
-    }
-
+  position: relative;
+  width: min(1320px, 100%);
+  margin: 0 auto;
+  padding: 18px;
+  background: transparent;
+  isolation: isolate;
+  overflow: visible;
+}
     .px-tech-grid {
       position: absolute;
       inset: 18px;
@@ -67,7 +66,7 @@
 
     .px-shell {
       position: relative;
-      overflow: hidden;
+      overflow: visible;
       border-radius: 36px;
       padding: 20px;
       background:
@@ -548,7 +547,7 @@
         experience ? experience.offsetHeight : 0
       );
 
-      window.parent.postMessage({ iframeHeight: h + 200 }, '*');
+      window.parent.postMessage({ iframeHeight: h + 300 }, '*');
     }
 
     window.addEventListener('load', function() {
