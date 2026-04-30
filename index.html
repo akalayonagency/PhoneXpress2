@@ -532,5 +532,15 @@
       </div>
     </section>
   </main>
+  function sendHeight() {
+  var h = Math.max(
+    document.body.scrollHeight,
+    document.documentElement.scrollHeight,
+    document.body.offsetHeight,
+    document.documentElement.offsetHeight
+  );
+
+  window.parent.postMessage({ iframeHeight: h + 80 }, '*');
+}
 </body>
 </html>
