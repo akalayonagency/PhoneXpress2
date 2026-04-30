@@ -28,7 +28,8 @@
       background: transparent;
       color: var(--white);
       font-family: Arial, Helvetica, sans-serif;
-      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: visible;
       scrollbar-width: none;
     }
 
@@ -374,7 +375,8 @@
     @media (max-width: 1050px) {
       html,
       body {
-        overflow-y: auto;
+        overflow-x: hidden;
+        overflow-y: visible;
       }
 
       .px-content {
@@ -532,15 +534,33 @@
       </div>
     </section>
   </main>
-  function sendHeight() {
-  var h = Math.max(
-    document.body.scrollHeight,
-    document.documentElement.scrollHeight,
-    document.body.offsetHeight,
-    document.documentElement.offsetHeight
-  );
 
-  window.parent.postMessage({ iframeHeight: h + 80 }, '*');
-}
+  <script>
+    function sendHeight() {
+      var experience = document.querySelector('.px-experience');
+
+      var h = Math.max(
+        document.body.scrollHeight,
+        document.documentElement.scrollHeight,
+        document.body.offsetHeight,
+        document.documentElement.offsetHeight,
+        experience ? experience.scrollHeight : 0,
+        experience ? experience.offsetHeight : 0
+      );
+
+      window.parent.postMessage({ iframeHeight: h + 140 }, '*');
+    }
+
+    window.addEventListener('load', function() {
+      sendHeight();
+      setTimeout(sendHeight, 300);
+      setTimeout(sendHeight, 800);
+      setTimeout(sendHeight, 1500);
+      setTimeout(sendHeight, 3000);
+    });
+
+    window.addEventListener('resize', sendHeight);
+    setInterval(sendHeight, 1000);
+  </script>
 </body>
 </html>
