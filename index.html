@@ -11,17 +11,14 @@
       --blue-2: #44c7ff;
       --blue-deep: #045a95;
       --white: #ffffff;
-      --soft: rgba(255,255,255,0.78);
-      --glass: rgba(4, 13, 22, 0.54);
-      --glass-strong: rgba(3, 16, 28, 0.72);
+      --soft: rgba(255,255,255,0.72);
+      --card-bg: rgba(255,255,255,0.07);
+      --card-border: rgba(255,255,255,0.12);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
-    html,
-    body {
+    html, body {
       margin: 0;
       width: 100%;
       min-height: 100%;
@@ -32,59 +29,19 @@
       overflow-y: visible;
       scrollbar-width: none;
     }
-
-    html::-webkit-scrollbar,
-    body::-webkit-scrollbar {
-      display: none;
-    }
-
-    body {
-      padding: 0;
-    }
+    html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
 
     .px-experience {
-  position: relative;
-  width: min(1320px, 100%);
-  margin: 0 auto;
-  padding: 18px;
-  background: transparent;
-  isolation: isolate;
-  overflow: visible;
-}
-    .px-tech-grid {
-      position: absolute;
-      inset: 18px;
-      z-index: -1;
-      opacity: 0.10;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.14) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.14) 1px, transparent 1px);
-      background-size: 58px 58px;
-      border-radius: 36px;
-      pointer-events: none;
-    }
-
-    .px-shell {
       position: relative;
+      width: min(1320px, 100%);
+      margin: 0 auto;
+      padding: 18px;
+      background: transparent;
+      isolation: isolate;
       overflow: visible;
-      border-radius: 36px;
-      padding: 20px;
-      background:
-        linear-gradient(135deg, rgba(255,255,255,0.14), rgba(255,255,255,0.035)),
-        rgba(0,0,0,0.10);
-      border: 1px solid rgba(255,255,255,0.15);
-      backdrop-filter: blur(16px);
     }
 
-    .px-shell::after {
-      content: "";
-      position: absolute;
-      inset: 1px;
-      border-radius: 35px;
-      background: linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.16));
-      pointer-events: none;
-    }
-
+    /* Grid — no outer shell */
     .px-content {
       position: relative;
       z-index: 2;
@@ -94,129 +51,121 @@
       align-items: stretch;
     }
 
+    /* ── Card style matching the screenshot ── */
     .px-card {
       position: relative;
       overflow: hidden;
       min-height: 380px;
       padding: 30px 28px;
-      border-radius: 28px;
-      background:
-        radial-gradient(circle at 18% 10%, rgba(255,255,255,0.13), transparent 29%),
-        radial-gradient(circle at 88% 80%, rgba(20,151,232,0.22), transparent 34%),
-        linear-gradient(145deg, rgba(255,255,255,0.10), rgba(255,255,255,0.02)),
-        var(--glass);
-      border: 1px solid rgba(255,255,255,0.16);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
+      border-radius: 20px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      /* subtle inner glow, no heavy glass effect */
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.10),
+        0 4px 24px rgba(0,0,0,0.18);
       transform: translateY(18px);
       opacity: 0;
       animation: cardIn 0.9s cubic-bezier(.2,.8,.2,1) forwards;
-      transition: transform .35s ease, border-color .35s ease;
+      transition: transform .35s ease, border-color .35s ease, box-shadow .35s ease;
     }
 
-    .px-card:nth-child(2) {
-      animation-delay: .12s;
-    }
-
-    .px-card:nth-child(3) {
-      animation-delay: .24s;
-    }
+    .px-card:nth-child(2) { animation-delay: .12s; }
+    .px-card:nth-child(3) { animation-delay: .24s; }
 
     .px-card:hover {
       transform: translateY(-4px);
-      border-color: rgba(20,151,232,0.52);
+      border-color: rgba(20,151,232,0.42);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.12),
+        0 8px 32px rgba(20,151,232,0.15);
     }
 
-    .px-card::before {
-      content: "";
+    .px-card > *:not(.px-dots-canvas) {
+      position: relative;
+      z-index: 1;
+    }
+    .px-dots-canvas {
       position: absolute;
-      top: -80%;
-      left: -85%;
-      width: 110%;
-      height: 240%;
-      transform: rotate(18deg);
-      background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255,255,255,0.14),
-        rgba(20,151,232,0.25),
-        transparent
-      );
-      animation: lightSweep 5.5s ease-in-out infinite;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
       pointer-events: none;
+      z-index: 0;
     }
 
+    /* Middle card accent — slightly brighter top edge */
     .px-main {
       min-height: 420px;
       padding: 34px;
-      background:
-        radial-gradient(circle at 50% 0%, rgba(68,199,255,0.34), transparent 35%),
-        radial-gradient(circle at 80% 90%, rgba(20,151,232,0.28), transparent 36%),
-        linear-gradient(145deg, rgba(20,151,232,0.28), rgba(0,0,0,0.21)),
-        var(--glass-strong);
-      border-color: rgba(20,151,232,0.5);
+      border-color: rgba(20,151,232,0.35);
+      box-shadow:
+        inset 0 1px 0 rgba(68,199,255,0.18),
+        0 4px 32px rgba(20,151,232,0.12);
     }
 
-    .px-head {
+    /* ── Icon (emoji style like screenshot) ── */
+    .px-icon {
+      width: 48px;
+      height: 48px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      gap: 12px;
-      margin-bottom: 26px;
+      justify-content: center;
+      font-size: 26px;
+      /* no box, just the emoji floating */
+      background: none;
+      border: none;
+      margin-bottom: 6px;
     }
 
+    /* ── Pill badge ── */
     .px-pill {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 9px 13px;
+      gap: 7px;
+      padding: 6px 13px;
       border-radius: 999px;
-      background: rgba(20,151,232,0.15);
-      border: 1px solid rgba(20,151,232,0.38);
-      color: rgba(255,255,255,0.92);
-      font-size: 12px;
-      font-weight: 950;
-      letter-spacing: 0.8px;
+      background: rgba(20,151,232,0.12);
+      border: 1px solid rgba(20,151,232,0.30);
+      color: rgba(255,255,255,0.85);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.9px;
       text-transform: uppercase;
       white-space: nowrap;
     }
 
     .px-dot {
-      width: 8px;
-      height: 8px;
+      width: 7px; height: 7px;
       border-radius: 50%;
       background: var(--blue);
     }
 
-    .px-icon {
-      width: 50px;
-      height: 50px;
-      flex: 0 0 50px;
-      display: grid;
-      place-items: center;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.10);
-      border: 1px solid rgba(255,255,255,0.15);
-      font-size: 25px;
+    .px-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 20px;
     }
 
+    /* ── Big number ── */
     .px-number {
       display: flex;
       align-items: flex-end;
       gap: 8px;
-      margin: 0 0 18px;
+      margin: 0 0 14px;
       font-size: clamp(56px, 7.6vw, 110px);
       line-height: 0.86;
       font-weight: 1000;
       letter-spacing: -5px;
       color: #fff;
       text-shadow:
-        0 0 17px rgba(20,151,232,0.95),
-        0 0 48px rgba(20,151,232,0.42);
+        0 0 14px rgba(20,151,232,0.80),
+        0 0 40px rgba(20,151,232,0.32);
     }
-
-    .px-main .px-number {
-      font-size: clamp(78px, 10vw, 142px);
-    }
+    .px-main .px-number { font-size: clamp(78px, 10vw, 142px); }
 
     .px-number small {
       margin-bottom: 8px;
@@ -225,42 +174,37 @@
       font-weight: 950;
     }
 
+    /* ── Title ── */
     .px-title {
       margin: 0 0 12px;
-      font-size: clamp(24px, 2.5vw, 34px);
-      line-height: 0.98;
-      letter-spacing: -1px;
+      font-size: clamp(18px, 2vw, 26px);
+      line-height: 1.1;
+      letter-spacing: -0.5px;
       text-transform: uppercase;
-      font-weight: 1000;
+      font-weight: 900;
     }
+    .px-main .px-title { font-size: clamp(22px, 2.8vw, 34px); }
 
-    .px-main .px-title {
-      font-size: clamp(30px, 3.3vw, 42px);
-    }
-
+    /* ── Body text ── */
     .px-text {
       margin: 0;
       max-width: 390px;
       color: var(--soft);
-      font-size: 16px;
-      line-height: 1.55;
-      font-weight: 600;
+      font-size: 15px;
+      line-height: 1.6;
+      font-weight: 500;
     }
+    .px-main .px-text { font-size: 16px; color: rgba(255,255,255,0.82); }
 
-    .px-main .px-text {
-      font-size: 17px;
-      color: rgba(255,255,255,0.86);
-    }
-
+    /* ── Progress bar ── */
     .px-progress {
       position: relative;
-      height: 8px;
-      margin-top: 30px;
+      height: 5px;
+      margin-top: 28px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.13);
+      background: rgba(255,255,255,0.10);
       overflow: hidden;
     }
-
     .px-progress span {
       position: absolute;
       inset: 0 auto 0 0;
@@ -271,173 +215,103 @@
       animation: progressGrow 1.4s ease both;
     }
 
+    /* ── CTA ── */
     .px-cta {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       gap: 12px;
-      margin-top: 28px;
+      margin-top: 24px;
     }
-
     .px-button {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 52px;
-      padding: 0 22px;
-      border-radius: 17px;
+      min-height: 48px;
+      padding: 0 20px;
+      border-radius: 14px;
       background: linear-gradient(135deg, var(--blue), var(--blue-deep));
       color: white;
       text-decoration: none;
-      font-size: 14px;
-      font-weight: 1000;
+      font-size: 13px;
+      font-weight: 900;
       letter-spacing: 0.7px;
       text-transform: uppercase;
-      transition: transform .22s ease;
+      transition: transform .22s ease, box-shadow .22s ease;
     }
-
     .px-button:hover {
-      transform: translateY(-3px);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(20,151,232,0.35);
     }
-
     .px-ghost {
-      color: rgba(255,255,255,0.72);
-      font-size: 14px;
-      font-weight: 800;
+      color: rgba(255,255,255,0.62);
+      font-size: 13px;
+      font-weight: 700;
     }
 
+    /* ── Stars ── */
     .px-stars {
       display: flex;
-      gap: 6px;
-      margin: 22px 0 12px;
+      gap: 4px;
+      margin: 18px 0 10px;
       color: var(--blue);
-      font-size: 23px;
-      letter-spacing: 1px;
+      font-size: 21px;
     }
 
+    /* ── Review box ── */
     .px-review-box {
       position: relative;
-      margin-top: 16px;
+      margin-top: 14px;
       padding: 13px;
       min-height: 120px;
       max-height: 152px;
       overflow: hidden;
-      border-radius: 20px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.03));
-      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
     }
-
     .px-review-box::after {
       content: "";
       position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
+      left: 0; right: 0; bottom: 0;
       height: 40px;
-      background: linear-gradient(transparent, rgba(4,13,22,0.94));
+      background: linear-gradient(transparent, rgba(10,20,35,0.92));
       pointer-events: none;
     }
 
+    /* ── Animations ── */
     @keyframes cardIn {
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-
-    @keyframes lightSweep {
-      0%, 38% {
-        transform: translateX(-28%) rotate(18deg);
-        opacity: 0;
-      }
-
-      50% {
-        opacity: 1;
-      }
-
-      72%, 100% {
-        transform: translateX(150%) rotate(18deg);
-        opacity: 0;
-      }
+      to { transform: translateY(0); opacity: 1; }
     }
 
     @keyframes progressGrow {
-      from {
-        transform: scaleX(0);
-      }
-
-      to {
-        transform: scaleX(1);
-      }
+      from { transform: scaleX(0); }
+      to   { transform: scaleX(1); }
     }
 
+    /* ── Responsive ── */
     @media (max-width: 1050px) {
-      html,
-      body {
-        overflow-x: hidden;
-        overflow-y: visible;
-      }
-
-      .px-content {
-        grid-template-columns: 1fr;
-      }
-
-      .px-card,
-      .px-main {
-        min-height: auto;
-      }
+      html, body { overflow-x: hidden; overflow-y: visible; }
+      .px-content { grid-template-columns: 1fr; }
+      .px-card, .px-main { min-height: auto; }
     }
 
     @media (max-width: 560px) {
-      .px-experience {
-        padding: 8px;
-      }
-
-      .px-shell {
-        padding: 10px;
-        border-radius: 26px;
-      }
-
-      .px-shell::after {
-        border-radius: 25px;
-      }
-
-      .px-card,
-      .px-main {
-        padding: 24px 20px;
-        border-radius: 22px;
-      }
-
-      .px-head {
-        margin-bottom: 24px;
-      }
-
-      .px-icon {
-        width: 44px;
-        height: 44px;
-        flex-basis: 44px;
-      }
-
-      .px-pill {
-        font-size: 11px;
-        padding: 8px 11px;
-      }
-
-      .px-number {
-        letter-spacing: -3px;
-      }
+      .px-experience { padding: 8px; }
+      .px-card, .px-main { padding: 22px 18px; border-radius: 16px; }
+      .px-head { margin-bottom: 18px; }
+      .px-number { letter-spacing: -3px; }
     }
   </style>
 </head>
 
 <body>
   <main class="px-experience">
-    <div class="px-tech-grid"></div>
-
-    <section class="px-shell" aria-label="Avantages Phone Xpress">
+    <section aria-label="Avantages Phone Xpress">
       <div class="px-content">
 
         <article class="px-card">
+          <canvas class="px-dots-canvas"></canvas>
           <div class="px-head">
             <span class="px-pill">
               <span class="px-dot"></span>
@@ -458,6 +332,7 @@
         </article>
 
         <article class="px-card px-main">
+          <canvas class="px-dots-canvas"></canvas>
           <div class="px-head">
             <span class="px-pill">
               <span class="px-dot"></span>
@@ -466,12 +341,8 @@
             <div class="px-icon">⚡</div>
           </div>
 
-          <div class="px-number">
-            30<small>min</small>
-          </div>
-
+          <div class="px-number">30<small>min</small></div>
           <h2 class="px-title">Un délai moyen qui change tout</h2>
-
           <p class="px-text">
             Écran, batterie, vitre arrière, diagnostic : Phone Xpress va droit au problème pour vous faire gagner du temps.
           </p>
@@ -485,7 +356,6 @@
             >
               Lancer le diagnostic
             </a>
-
             <span class="px-ghost">Demande en ligne rapide</span>
           </div>
 
@@ -495,6 +365,7 @@
         </article>
 
         <article class="px-card">
+          <canvas class="px-dots-canvas"></canvas>
           <div class="px-head">
             <span class="px-pill">
               <span class="px-dot"></span>
@@ -503,22 +374,14 @@
             <div class="px-icon">★</div>
           </div>
 
-          <div class="px-number">
-            4.7<small>/5</small>
-          </div>
-
+          <div class="px-number">4.7<small>/5</small></div>
           <h2 class="px-title">Ils nous recommandent</h2>
-
           <p class="px-text">
             Plus de 120 avis clients : la preuve sociale qui rassure avant même la prise de contact.
           </p>
 
           <div class="px-stars" aria-label="Note Google 4.7 sur 5">
-            <span>★</span>
-            <span>★</span>
-            <span>★</span>
-            <span>★</span>
-            <span>★</span>
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
           </div>
 
           <div class="px-review-box">
@@ -535,18 +398,96 @@
   </main>
 
   <script>
-  function sendHeight() {
-  var h = Math.max(
-    document.body.scrollHeight,
-    document.documentElement.scrollHeight,
-    document.body.offsetHeight,
-    document.documentElement.offsetHeight
-  );
+    /* ── Height reporting ── */
+    function sendHeight() {
+      var h = Math.max(
+        document.body.scrollHeight,
+        document.documentElement.scrollHeight,
+        document.body.offsetHeight,
+        document.documentElement.offsetHeight
+      );
+      window.parent.postMessage({ frameId: 'px-frame-3', iframeHeight: h }, '*');
+    }
+    sendHeight();
+    window.addEventListener('load', sendHeight);
+    window.addEventListener('resize', sendHeight);
 
- window.parent.postMessage({
-  frameId: 'px-frame-3',
-  iframeHeight: h
-}, '*');
+    /* ── Floating dots particle engine ── */
+    const COLORS = ['#1497e8', '#44c7ff', '#045a95', '#ffffff'];
+
+    function initDots(canvas) {
+      const ctx = canvas.getContext('2d');
+      const card = canvas.parentElement;
+      let dots = [];
+      let raf;
+
+      function resize() {
+        canvas.width  = card.offsetWidth;
+        canvas.height = card.offsetHeight;
+      }
+
+      function spawnDot() {
+        const color = COLORS[Math.floor(Math.random() * COLORS.length)];
+        return {
+          x:  Math.random() * canvas.width,
+          y:  Math.random() * canvas.height,
+          r:  Math.random() * 2.2 + 1.0,
+          vx: (Math.random() - 0.5) * 0.45,
+          vy: (Math.random() - 0.5) * 0.45,
+          alpha: Math.random() * 0.55 + 0.18,
+          color,
+          life: 0,
+          maxLife: Math.random() * 280 + 180,
+        };
+      }
+
+      function init() {
+        resize();
+        dots = Array.from({ length: 22 }, spawnDot);
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        for (let i = dots.length - 1; i >= 0; i--) {
+          const d = dots[i];
+          d.x += d.vx;
+          d.y += d.vy;
+          d.life++;
+
+          /* fade in / fade out */
+          let a = d.alpha;
+          if (d.life < 40)  a *= d.life / 40;
+          if (d.life > d.maxLife - 40) a *= (d.maxLife - d.life) / 40;
+
+          ctx.beginPath();
+          ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+          ctx.fillStyle = d.color;
+          ctx.globalAlpha = Math.max(0, a);
+          ctx.fill();
+          ctx.globalAlpha = 1;
+
+          /* wrap edges */
+          if (d.x < -4) d.x = canvas.width + 4;
+          if (d.x > canvas.width + 4)  d.x = -4;
+          if (d.y < -4) d.y = canvas.height + 4;
+          if (d.y > canvas.height + 4) d.y = -4;
+
+          /* replace aged dot */
+          if (d.life >= d.maxLife) dots[i] = spawnDot();
+        }
+
+        raf = requestAnimationFrame(draw);
+      }
+
+      init();
+      draw();
+
+      const ro = new ResizeObserver(() => { resize(); });
+      ro.observe(card);
+    }
+
+    document.querySelectorAll('.px-dots-canvas').forEach(initDots);
   </script>
 </body>
 </html>
